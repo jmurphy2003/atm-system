@@ -1,21 +1,16 @@
 import java.util.Scanner;
 
 public class Customer extends User {
+
     private CheckingAccount checking = new CheckingAccount();
     private SavingsAccount savings = new SavingsAccount();
-    private Scanner scanner = new Scanner(System.in);
 
     public Customer() {
-        setUserName("Alice");
-        setPIN("0000");
     }
 
-    public static void main(String[] args) {
-        Customer c = new Customer();
-
-        if (c.login()) {
-            c.start();
-        }
+    public Customer(String name, String pin) {
+        setUserName(name);
+        setPIN(pin);
     }
 
     public String menu() {
@@ -27,28 +22,48 @@ public class Customer extends User {
     }
 
     public void start() {
+        Scanner scanner = new Scanner(System.in);
         int choice;
+
         do {
             System.out.println(menu());
             System.out.print("Action (0-3): ");
             choice = Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
-                case 1: checking.start(); break;
-                case 2: savings.start(); break;
-                case 3: changePin(); break;
+                case 1:
+                    System.out.println("Checking Account");
+                    checking.start();
+                    break;
+                case 2:
+                    System.out.println("Savings Account");
+                    savings.start();
+                    break;
+                case 3:
+                    changePin();
+                    break;
             }
+
         } while (choice != 0);
     }
 
     public void changePin() {
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Enter new PIN: ");
         setPIN(scanner.nextLine());
     }
 
     public String getReport() {
-        return "Customer: " + getUserName() +
-               "\nChecking: " + checking.getBalanceString() +
-               "\nSavings: " + savings.getBalanceString();
+        return "User: " + getUserName() +
+               ", Checking: " + checking.getBalanceString() +
+               ", Savings: " + savings.getBalanceString();
+    }
+
+    public CheckingAccount getChecking() {
+        return checking;
+    }
+
+    public SavingsAccount getSavings() {
+        return savings;
     }
 }

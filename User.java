@@ -2,15 +2,19 @@ import java.io.Serializable;
 import java.util.Scanner;
 
 public abstract class User implements HasMenu, Serializable {
+
     private String userName;
     private String PIN;
-    private Scanner scanner = new Scanner(System.in);
 
     public boolean login() {
+        Scanner scanner = new Scanner(System.in);
+
         System.out.print("User name: ");
         String u = scanner.nextLine();
+
         System.out.print("PIN: ");
         String p = scanner.nextLine();
+
         return login(u, p);
     }
 
@@ -19,7 +23,6 @@ public abstract class User implements HasMenu, Serializable {
             System.out.println("Login Successful");
             return true;
         }
-        System.out.println("Login Failed");
         return false;
     }
 

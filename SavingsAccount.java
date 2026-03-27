@@ -1,10 +1,6 @@
 public class SavingsAccount extends CheckingAccount {
-    private double interestRate;
 
-    public static void main(String[] args) {
-        SavingsAccount acc = new SavingsAccount();
-        acc.start();
-    }
+    private double interestRate = 0.05; // default 5%
 
     public void calcInterest() {
         double interest = getBalance() * interestRate;
@@ -12,7 +8,7 @@ public class SavingsAccount extends CheckingAccount {
     }
 
     public void setInterestRate(double rate) {
-        this.interestRate = rate;
+        interestRate = rate;
     }
 
     public double getInterestRate() {

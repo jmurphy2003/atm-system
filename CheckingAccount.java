@@ -1,20 +1,16 @@
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class CheckingAccount implements HasMenu {
+public class CheckingAccount implements HasMenu, Serializable {
+
     private double balance;
-    private Scanner scanner = new Scanner(System.in);
 
     public CheckingAccount() {
-        this.balance = 0;
+        balance = 0;
     }
 
     public CheckingAccount(double balance) {
         this.balance = balance;
-    }
-
-    public static void main(String[] args) {
-        CheckingAccount acc = new CheckingAccount();
-        acc.start();
     }
 
     public String menu() {
@@ -26,17 +22,20 @@ public class CheckingAccount implements HasMenu {
     }
 
     public void start() {
+        Scanner scanner = new Scanner(System.in);
         int choice;
+
         do {
             System.out.println(menu());
             System.out.print("Please enter 0-3: ");
-            choice = (int)getDouble();
+            choice = Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
                 case 1: checkBalance(); break;
                 case 2: makeDeposit(); break;
                 case 3: makeWithdrawal(); break;
             }
+
         } while (choice != 0);
     }
 
@@ -53,10 +52,12 @@ public class CheckingAccount implements HasMenu {
     }
 
     public void checkBalance() {
+        System.out.println("Checking balance...");
         System.out.println("Current balance: " + getBalanceString());
     }
 
     private double getDouble() {
+        Scanner scanner = new Scanner(System.in);
         try {
             return Double.parseDouble(scanner.nextLine());
         } catch (Exception e) {
@@ -65,6 +66,7 @@ public class CheckingAccount implements HasMenu {
     }
 
     public void makeDeposit() {
+        System.out.println("Making a deposit...");
         System.out.print("How much to deposit? ");
         double amt = getDouble();
         balance += amt;
@@ -72,6 +74,7 @@ public class CheckingAccount implements HasMenu {
     }
 
     public void makeWithdrawal() {
+        System.out.println("Making a withdrawal...");
         System.out.print("How much to withdraw? ");
         double amt = getDouble();
         balance -= amt;
